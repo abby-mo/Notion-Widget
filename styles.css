@@ -22,7 +22,7 @@ body {
       flex-direction: column;
       justify-content: flex-start;
       align-items: center;
-      width: 280px;
+      width: 200px;
       background-color: var(--calendar-bg);
       border-radius: 20px;
       text-align: center;

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Notion Calendar Widget</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Gaegu&family=Sour+Gummy&display=swap" rel="stylesheet">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="calendar-container">
+    <div class="inner-container">
+
+      <div class="header">
+        <span id="year"></span>
+        <h2 id="month"></h2>
+      </div>
+
+      <table id="calendar">
+        <thead>
+          <tr>
+            <th>S</th>
+            <th>M</th>
+            <th>T</th>
+            <th>W</th>
+            <th>T</th>
+            <th>F</th>
+            <th>S</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+
+      <div class="controls">
+        <button id="prevMonth">‹</button>
+        <button id="nextMonth">›</button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- JS -->
+  <script src="script.js"></script>
+</body>
+</html>

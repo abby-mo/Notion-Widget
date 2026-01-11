@@ -29,28 +29,35 @@ window.addEventListener('DOMContentLoaded', () => {
     function generateCalendar() {
       const firstDay = new Date(currentYear, currentMonth, 1).getDay();
       const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
-    
-      document.getElementById("month").textContent = monthNames[currentMonth];
+      const daysInPrevMonth = new Date(currentYear, currentMonth, 0).getDate();
+
+      document.getElementById("month").textContent = monthNames[currentMonth] + " " + currentYear;
       document.getElementById("year").textContent = currentYear;
-    
+
       // Clear previous rows
       calendarTable.querySelector("tbody").innerHTML = "";
-    
+
       let date = 1;
+      let nextMonthDate = 1;
       let row = calendarTable.querySelector("tbody").insertRow();
-    
+
+      // Fill in previous month's days
       for (let i = 0; i < 7; i++) {
+        const cell = row.insertCell();
+
         if (i < firstDay) {
-          row.insertCell();
+          // Previous month days
+          const prevMonthDay = daysInPrevMonth - firstDay + i + 1;
+          cell.textContent = prevMonthDay;
+          cell.classList.add("other-month");
           continue;
         }
-    
-        const cell = row.insertCell();
+
         const cellDate = date;
         cell.textContent = cellDate;
 
-         // Highlight the current day
-      if (
+        // Highlight the current day
+        if (
           cellDate === currentDate &&
           currentMonth === new Date().getMonth() &&
           currentYear === new Date().getFullYear()
@@ -59,23 +66,27 @@ window.addEventListener('DOMContentLoaded', () => {
         }
 
         date++;
-    
+
         if (i === 6) {
           row = calendarTable.querySelector("tbody").insertRow();
         }
       }
-    
-      // Fill remaining days
+
+      // Fill remaining days of current month
       while (date <= daysInMonth) {
         for (let i = 0; i < 7; i++) {
           const cell = row.insertCell();
-          if (date > daysInMonth) {
-            break;
-          }
-          const cellDate = date;
-          cell.textContent = cellDate;
 
-          if (
+          if (date > daysInMonth) {
+            // Next month days
+            cell.textContent = nextMonthDate;
+            cell.classList.add("other-month");
+            nextMonthDate++;
+          } else {
+            const cellDate = date;
+            cell.textContent = cellDate;
+
+            if (
               cellDate === currentDate &&
               currentMonth === new Date().getMonth() &&
               currentYear === new Date().getFullYear()
@@ -83,9 +94,13 @@ window.addEventListener('DOMContentLoaded', () => {
               cell.classList.add("current-day");
             }
 
-          date++;
+            date++;
+          }
         }
-        row = calendarTable.querySelector("tbody").insertRow();
+
+        if (date <= daysInMonth || nextMonthDate <= 7) {
+          row = calendarTable.querySelector("tbody").insertRow();
+        }
       }
     }
     

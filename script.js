@@ -26,14 +26,6 @@ window.addEventListener('DOMContentLoaded', () => {
     const monthYearSpan = document.getElementById("month-year");
     const calendarTable = document.getElementById("calendar");
 
-    function openGoogleCalendar(year, month, day) {
-      // Format: YYYY/MM/DD (month needs +1 because JavaScript months are 0-indexed)
-      const formattedMonth = String(month + 1).padStart(2, '0');
-      const formattedDay = String(day).padStart(2, '0');
-      const url = `https://calendar.google.com/calendar/r/day/${year}/${formattedMonth}/${formattedDay}`;
-      window.open(url, '_blank');
-    }
-
     function generateCalendar() {
       const firstDay = new Date(currentYear, currentMonth, 1).getDay();
       const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
@@ -56,11 +48,6 @@ window.addEventListener('DOMContentLoaded', () => {
         const cell = row.insertCell();
         const cellDate = date;
         cell.textContent = cellDate;
-
-        // Add click event to open Google Calendar
-        cell.addEventListener("click", () => {
-          openGoogleCalendar(currentYear, currentMonth, cellDate);
-        });
 
          // Highlight the current day
       if (
@@ -87,11 +74,6 @@ window.addEventListener('DOMContentLoaded', () => {
           }
           const cellDate = date;
           cell.textContent = cellDate;
-
-          // Add click event to open Google Calendar
-          cell.addEventListener("click", () => {
-            openGoogleCalendar(currentYear, currentMonth, cellDate);
-          });
 
           if (
               cellDate === currentDate &&

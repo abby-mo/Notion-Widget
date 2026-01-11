@@ -1,92 +1,84 @@
 body {
-    -webkit-tap-highlight-color: transparent; 
+    -webkit-tap-highlight-color: transparent;
     }
-  
+
     :root {
-      --weekday-color: #5C4F42;
-
-      --innerBorder-color: #5C4F42;
-      --containerBorder-color: #E3D1DD;
-
-      --sunday-color: #5C4F42;
-      --saturday-color: #5C4F42;
-
-      --current-day: #F5E7F0;
-
-      --container: #E3D1DD;
-      --inner-container: #E3D1DD;
-
-      --fontWgt: 600;
-  
-      --headerFont: "Gaegu", serif;
-      --textFont: "Sour Gummy", serif;
+      --weekday-color: #2D3748;
+      --header-bg: #D4E7D1;
+      --calendar-bg: #FFFFFF;
+      --container-bg: #F7F9FB;
+      --current-day-bg: #D4E7D1;
+      --other-month-color: #CBD5E0;
+      --fontWgt: 500;
+      --headerFont: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      --textFont: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     }
     
   
     /*containers*/
     .calendar-container {
       position: relative;
-      display: flex; 
-      flex-direction: column; 
-      justify-content: center;
-      align-items: center; 
-      min-height: 204px;
-      max-height: 194px;
-      width: 194px; 
-      background-color: var(--container); 
-      border-radius: 40px; 
-      border: solid 3px var(--containerBorder-color);
-      text-align: center; 
-      padding: 14px; 
-      margin: 20px auto; 
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      width: 280px;
+      background-color: var(--calendar-bg);
+      border-radius: 20px;
+      text-align: center;
+      padding: 0;
+      margin: 20px auto;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
     }
-  
-   
-  
+
+
+
     .inner-container {
-      position: absolute;
-      display: flex; 
-      flex-direction: column; 
-      justify-content: center;
-      align-items: center; 
-      min-height: 190px;
-      max-height: 180px;
-      width: 180px; 
-      background-color: var(--inner-container);
-      border: solid 3px var(--innerBorder-color); 
-      border-radius: 32px; 
-      text-align: center; 
-      padding: 10px; 
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      width: 100%;
+      background-color: var(--calendar-bg);
+      text-align: center;
+      padding: 0;
     }
   
     
   
     /*days*/
     td {
-      font-family: var(--headerFont);
-      font-size: 15px;
+      font-family: var(--textFont);
+      font-size: 14px;
       color: var(--weekday-color);
       border: 0;
       font-weight: var(--fontWgt);
-      padding: 0 4px;
-      line-height: 1.2;
+      padding: 6px;
+      line-height: 1.4;
       text-align: center;
     }
 
 
     td:first-child {
-      color: var(--sunday-color);
+      color: var(--weekday-color);
     }
 
     td:last-child{
-      color: var(--saturday-color);
+      color: var(--weekday-color);
+    }
+
+    td.other-month {
+      color: var(--other-month-color);
     }
 
     table {
       user-select: none;
       border-collapse: collapse;
-      width: 140px;
-      margin: 1px auto;
+      width: 100%;
+      max-width: 240px;
+      margin: 0 auto 16px;
+      padding: 0 12px;
     }
 
 
@@ -94,32 +86,36 @@ body {
     th {
       font-family: var(--headerFont);
       color: var(--weekday-color);
-      font-size: 15px;
-      padding: 0 4px;
-      line-height: 1.2;
+      font-size: 13px;
+      padding: 8px 6px;
+      line-height: 1.4;
       border: 0;
       text-align: center;
-      font-weight: var(--fontWgt);
+      font-weight: 600;
     }
-  
+
     th:first-child {
-      color: var(--sunday-color);
+      color: var(--weekday-color);
     }
-  
+
     th:last-child {
-      color: var(--saturday-color);
+      color: var(--weekday-color);
     }
   
   
-    /*hearder*/
+    /*header*/
     .header {
-      margin-bottom: 0px;
-      display: flex; 
+      margin-bottom: 12px;
+      display: flex;
       flex-direction: column;
-      align-items: center; 
+      align-items: center;
       text-align: center;
+      width: 100%;
+      background-color: var(--header-bg);
+      padding: 16px 20px;
+      border-radius: 20px 20px 0 0;
     }
-  
+
     #year {
       user-select: none;
       font-family: var(--headerFont);
@@ -127,15 +123,16 @@ body {
       font-size: 0.8em;
       margin-bottom: 0px;
       font-weight: var(--fontWgt);
+      display: none;
     }
 
 
     .month-navigation {
       display: flex;
       align-items: center;
-      justify-content: center;
-      gap: 30px;
+      justify-content: space-between;
       width: 100%;
+      max-width: 240px;
     }
 
     #month {
@@ -144,9 +141,9 @@ body {
       color: var(--weekday-color);
       padding: 0;
       margin: 0;
-      font-size: 1.4em;
-      letter-spacing: 1.5px;
-      font-weight: var(--fontWgt);
+      font-size: 1.3em;
+      letter-spacing: 0.5px;
+      font-weight: 600;
     }
 
     .month-navigation button {
@@ -154,13 +151,18 @@ body {
       background-color: transparent;
       border: 0;
       font-family: var(--headerFont);
-      font-size: 1.5em;
-      font-weight: var(--fontWgt);
-      opacity: 0.6;
+      font-size: 1.8em;
+      font-weight: 400;
+      opacity: 0.7;
       cursor: pointer;
       padding: 0;
       margin: 0;
       line-height: 1;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
 
@@ -175,23 +177,23 @@ body {
   
   
   
-    /*hearder*/
+    /*current day*/
   .current-day {
-    position: relative; 
-    z-index: 1; 
+    position: relative;
+    z-index: 1;
   }
-  
+
   .current-day::before {
     content: "";
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%) skew(5deg, 3deg); /* Centers and skews the blob */
-    width: 19px;
-    height: 19px;
-    background-color: var(--current-day); /* Blob color */
-    border-radius: 50%; /* Makes it circular */
-    z-index: -1; /* Places the blob behind the text */
+    transform: translate(-50%, -50%);
+    width: 32px;
+    height: 32px;
+    background-color: var(--current-day-bg);
+    border-radius: 50%;
+    z-index: -1;
   }
   
   

@@ -6,15 +6,15 @@ body {
       --weekday-color: #5C4F42;
 
       --innerBorder-color: #5C4F42;
-      --containerBorder-color: #E3D1DD;
+      --containerBorder-color: #5C4F42;
 
       --sunday-color: #5C4F42;
       --saturday-color: #5C4F42;
 
-      --current-day: #F5E7F0;
+      --current-day: #E8DDF5;
 
-      --container: #E3D1DD;
-      --inner-container: #E3D1DD;
+      --container: #C9B8D6;
+      --inner-container: #C9B8D6;
 
       --fontWgt: 600;
   

@@ -3,13 +3,21 @@ const THEME_STORAGE_KEY = "notion-calendar-theme";
 const THEME_DEFAULTS = {
   "header-bg": "#1E222D",
   "header-text": "#FFFFFF",
-  "calendar-bg": "#FFFFFF",
+  "calendar-bg": "transparent",
   "day-text": "#1A1A1A",
   "weekday-color": "#1A1A1A",
   "other-month-color": "#C5C5C5",
   "current-day-bg": "#1E222D",
   "current-day-text": "#FFFFFF",
 };
+
+/* Colors that follow Notion/system light-dark unless the user overrides them */
+const SYSTEM_THEME_KEYS = new Set([
+  "calendar-bg",
+  "day-text",
+  "weekday-color",
+  "other-month-color",
+]);
 
 const COLOR_INPUT_MAP = {
   "color-accent": ["header-bg", "current-day-bg"],
@@ -30,7 +38,11 @@ function normalizeColor(value) {
 
 function toHexColor(value) {
   const normalized = normalizeColor(value);
-  if (!normalized) return "#000000";
+  if (!normalized || normalized === "transparent") {
+    return window.matchMedia("(prefers-color-scheme: dark)").matches
+      ? "#191919"
+      : "#FFFFFF";
+  }
   if (/^#[0-9A-Fa-f]{6}$/.test(normalized)) {
     return normalized.toUpperCase();
   }
@@ -107,7 +119,13 @@ function initTheme() {
 
   const saved = loadSavedTheme();
   if (saved) {
-    applyThemeVars(saved);
+    const overrides = {};
+    Object.entries(saved).forEach(([key, value]) => {
+      // Keep system/Notion light-dark for background + text unless URL forces them
+      if (SYSTEM_THEME_KEYS.has(key) && !(key in fromUrl)) return;
+      overrides[key] = value;
+    });
+    applyThemeVars(overrides);
   }
 
   syncColorInputs();

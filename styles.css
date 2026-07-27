@@ -4,10 +4,15 @@ body {
   background: transparent;
 }
 
+html {
+  background: transparent;
+  color-scheme: light dark;
+}
+
 :root {
   --header-bg: #1E222D;
   --header-text: #FFFFFF;
-  --calendar-bg: #FFFFFF;
+  --calendar-bg: transparent;
   --day-text: #1A1A1A;
   --weekday-color: #1A1A1A;
   --other-month-color: #C5C5C5;
@@ -18,21 +23,31 @@ body {
   --textFont: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
 
+@media (prefers-color-scheme: dark) {
+  :root {
+    --calendar-bg: transparent;
+    --day-text: #EBEBEB;
+    --weekday-color: #EBEBEB;
+    --other-month-color: #6B6B6B;
+  }
+}
+
 .calendar-container {
   position: relative;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: stretch;
-  width: min(280px, 100vw);
+  width: 225px;
+  height: 225px;
   aspect-ratio: 1 / 1;
   background-color: var(--calendar-bg);
   border-radius: 4px;
   text-align: center;
   padding: 0;
-  margin: 20px auto;
+  margin: 0 auto;
   overflow: hidden;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: none;
   box-sizing: border-box;
 }
 
@@ -59,7 +74,7 @@ body {
   width: 100%;
   flex-shrink: 0;
   background-color: var(--header-bg);
-  padding: 16px 10px;
+  padding: 12px 6px;
   border-radius: 4px 4px 0 0;
   box-sizing: border-box;
 }
@@ -81,7 +96,7 @@ body {
   color: var(--header-text);
   padding: 0;
   margin: 0;
-  font-size: 1.15em;
+  font-size: 0.95em;
   letter-spacing: 0.2px;
   font-weight: 700;
   cursor: pointer;
@@ -95,8 +110,8 @@ body {
   cursor: pointer;
   padding: 0;
   margin: 0;
-  width: 36px;
-  height: 36px;
+  width: 28px;
+  height: 28px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -108,8 +123,8 @@ body {
 }
 
 .nav-chevron {
-  width: 18px;
-  height: 18px;
+  width: 14px;
+  height: 14px;
   display: block;
 }
 
@@ -120,7 +135,7 @@ table {
   width: 100%;
   height: 100%;
   margin: 0;
-  padding: 8px 12px 12px;
+  padding: 4px 6px 8px;
   display: block;
   box-sizing: border-box;
   flex: 1;
@@ -135,7 +150,7 @@ tbody {
 }
 
 tbody {
-  height: calc(100% - 34px);
+  height: calc(100% - 28px);
 }
 
 tbody tr {
@@ -145,9 +160,9 @@ tbody tr {
 th {
   font-family: var(--headerFont);
   color: var(--weekday-color);
-  font-size: 13px;
-  padding: 8px 4px 6px;
-  line-height: 1.4;
+  font-size: 11px;
+  padding: 4px 2px 4px;
+  line-height: 1.3;
   border: 0;
   text-align: center;
   font-weight: 700;
@@ -155,11 +170,11 @@ th {
 
 td {
   font-family: var(--textFont);
-  font-size: 14px;
+  font-size: 11px;
   color: var(--day-text);
   border: 0;
   font-weight: var(--fontWgt);
-  padding: 4px;
+  padding: 2px;
   line-height: 1;
   text-align: center;
   vertical-align: middle;
@@ -184,8 +199,8 @@ td.other-month {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 28px;
-  height: 28px;
+  width: 22px;
+  height: 22px;
   background-color: var(--current-day-bg);
   border-radius: 3px;
   z-index: -1;
@@ -194,10 +209,10 @@ td.other-month {
 /* Hover theme toggle — plain circle overlay, top-right */
 .theme-toggle {
   position: absolute;
-  top: 10px;
-  right: 10px;
-  width: 14px;
-  height: 14px;
+  top: 8px;
+  right: 8px;
+  width: 12px;
+  height: 12px;
   padding: 0;
   margin: 0;
   border: 2px solid #ffffff;
@@ -229,14 +244,14 @@ td.other-month {
 
 .theme-panel {
   position: absolute;
-  left: 8px;
-  right: 8px;
-  bottom: 8px;
+  left: 6px;
+  right: 6px;
+  bottom: 6px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 4px;
-  padding: 8px 10px;
+  gap: 3px;
+  padding: 6px 8px;
   background: rgba(30, 34, 45, 0.95);
   border-radius: 4px;
   opacity: 0;
@@ -257,14 +272,14 @@ td.other-month {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 3px;
+  gap: 2px;
   cursor: pointer;
   min-width: 0;
 }
 
 .theme-swatch span {
   font-family: var(--textFont);
-  font-size: 9px;
+  font-size: 8px;
   font-weight: 600;
   color: rgba(255, 255, 255, 0.75);
   letter-spacing: 0.02em;
@@ -274,8 +289,8 @@ td.other-month {
 .theme-swatch input[type="color"] {
   -webkit-appearance: none;
   appearance: none;
-  width: 22px;
-  height: 22px;
+  width: 18px;
+  height: 18px;
   padding: 0;
   border: 1px solid rgba(255, 255, 255, 0.35);
   border-radius: 3px;
@@ -299,7 +314,7 @@ td.other-month {
 
 .theme-reset {
   font-family: var(--textFont);
-  font-size: 9px;
+  font-size: 8px;
   font-weight: 700;
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -307,7 +322,7 @@ td.other-month {
   background: rgba(255, 255, 255, 0.12);
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 3px;
-  padding: 6px 8px;
+  padding: 5px 6px;
   cursor: pointer;
   line-height: 1;
 }

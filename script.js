@@ -1,14 +1,146 @@
-window.addEventListener("DOMContentLoaded", () => {
-  const params = new URLSearchParams(window.location.search);
-  params.forEach((value, key) => {
-    // Allow #colors as %23hex or plain hex (e.g. 1E222D or #1E222D)
-    let cssValue = value;
-    if (/^[0-9A-Fa-f]{3,8}$/.test(value)) {
-      cssValue = `#${value}`;
-    }
-    document.documentElement.style.setProperty(`--${key}`, cssValue);
+const THEME_STORAGE_KEY = "notion-calendar-theme";
+
+const THEME_DEFAULTS = {
+  "header-bg": "#1E222D",
+  "header-text": "#FFFFFF",
+  "calendar-bg": "#FFFFFF",
+  "day-text": "#1A1A1A",
+  "weekday-color": "#1A1A1A",
+  "other-month-color": "#C5C5C5",
+  "current-day-bg": "#1E222D",
+  "current-day-text": "#FFFFFF",
+};
+
+const COLOR_INPUT_MAP = {
+  "color-accent": ["header-bg", "current-day-bg"],
+  "color-header-text": ["header-text"],
+  "color-bg": ["calendar-bg"],
+  "color-day-text": ["day-text", "weekday-color"],
+  "color-today-text": ["current-day-text"],
+};
+
+function normalizeColor(value) {
+  if (!value) return value;
+  const trimmed = value.trim();
+  if (/^[0-9A-Fa-f]{3,8}$/.test(trimmed)) {
+    return `#${trimmed}`;
+  }
+  return trimmed;
+}
+
+function toHexColor(value) {
+  const normalized = normalizeColor(value);
+  if (!normalized) return "#000000";
+  if (/^#[0-9A-Fa-f]{6}$/.test(normalized)) {
+    return normalized.toUpperCase();
+  }
+  if (/^#[0-9A-Fa-f]{3}$/.test(normalized)) {
+    const r = normalized[1];
+    const g = normalized[2];
+    const b = normalized[3];
+    return `#${r}${r}${g}${g}${b}${b}`.toUpperCase();
+  }
+
+  const probe = document.createElement("div");
+  probe.style.color = normalized;
+  document.body.appendChild(probe);
+  const rgb = getComputedStyle(probe).color;
+  document.body.removeChild(probe);
+
+  const match = rgb.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/);
+  if (!match) return "#000000";
+  return (
+    "#" +
+    [match[1], match[2], match[3]]
+      .map((n) => Number(n).toString(16).padStart(2, "0"))
+      .join("")
+      .toUpperCase()
+  );
+}
+
+function applyThemeVars(vars) {
+  Object.entries(vars).forEach(([key, value]) => {
+    document.documentElement.style.setProperty(`--${key}`, normalizeColor(value));
   });
-});
+}
+
+function getThemeFromCss() {
+  const theme = {};
+  Object.keys(THEME_DEFAULTS).forEach((key) => {
+    const value = getComputedStyle(document.documentElement)
+      .getPropertyValue(`--${key}`)
+      .trim();
+    theme[key] = value || THEME_DEFAULTS[key];
+  });
+  return theme;
+}
+
+function saveTheme(theme) {
+  localStorage.setItem(THEME_STORAGE_KEY, JSON.stringify(theme));
+}
+
+function loadSavedTheme() {
+  try {
+    const raw = localStorage.getItem(THEME_STORAGE_KEY);
+    return raw ? JSON.parse(raw) : null;
+  } catch {
+    return null;
+  }
+}
+
+function syncColorInputs() {
+  const theme = getThemeFromCss();
+  Object.entries(COLOR_INPUT_MAP).forEach(([inputId, keys]) => {
+    const input = document.getElementById(inputId);
+    if (!input) return;
+    input.value = toHexColor(theme[keys[0]]);
+  });
+}
+
+function initTheme() {
+  const params = new URLSearchParams(window.location.search);
+  const fromUrl = {};
+  params.forEach((value, key) => {
+    fromUrl[key] = normalizeColor(value);
+  });
+  applyThemeVars(fromUrl);
+
+  const saved = loadSavedTheme();
+  if (saved) {
+    applyThemeVars(saved);
+  }
+
+  syncColorInputs();
+
+  Object.entries(COLOR_INPUT_MAP).forEach(([inputId, keys]) => {
+    const input = document.getElementById(inputId);
+    if (!input) return;
+
+    input.addEventListener("input", () => {
+      const color = input.value;
+      const updates = {};
+      keys.forEach((key) => {
+        updates[key] = color;
+      });
+      applyThemeVars(updates);
+      saveTheme(getThemeFromCss());
+    });
+  });
+
+  const resetBtn = document.getElementById("theme-reset");
+  if (resetBtn) {
+    resetBtn.addEventListener("click", () => {
+      localStorage.removeItem(THEME_STORAGE_KEY);
+      Object.keys(THEME_DEFAULTS).forEach((key) => {
+        document.documentElement.style.removeProperty(`--${key}`);
+      });
+      applyThemeVars(fromUrl);
+      syncColorInputs();
+    });
+  }
+}
+
+window.addEventListener("DOMContentLoaded", initTheme);
 
 function updateCalendar() {
   generateCalendar();
@@ -45,7 +177,6 @@ function generateCalendar() {
   let nextMonthDate = 1;
   let row = calendarTable.querySelector("tbody").insertRow();
 
-  // First week: previous month padding + start of current month
   for (let i = 0; i < 7; i++) {
     const cell = row.insertCell();
 
@@ -74,7 +205,6 @@ function generateCalendar() {
     }
   }
 
-  // Remaining weeks
   while (dateNum <= daysInMonth) {
     for (let i = 0; i < 7; i++) {
       const cell = row.insertCell();

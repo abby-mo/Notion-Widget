@@ -6,7 +6,6 @@
 
   <title>Notion Calendar Widget</title>
 
-  <!-- CSS -->
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -17,9 +16,9 @@
       <div class="header">
         <span id="year"></span>
         <div class="month-navigation">
-          <button id="prevMonth">‹</button>
+          <button id="prevMonth" type="button" aria-label="Previous month">‹</button>
           <h2 id="month"></h2>
-          <button id="nextMonth">›</button>
+          <button id="nextMonth" type="button" aria-label="Next month">›</button>
         </div>
       </div>
 
@@ -39,9 +38,32 @@
       </table>
 
     </div>
+
+    <div class="theme-panel" aria-label="Color theme">
+      <label class="theme-swatch" title="Accent">
+        <input type="color" data-keys="header-bg,current-day-bg" id="color-accent" />
+        <span>Accent</span>
+      </label>
+      <label class="theme-swatch" title="Header text">
+        <input type="color" data-keys="header-text" id="color-header-text" />
+        <span>Header</span>
+      </label>
+      <label class="theme-swatch" title="Background">
+        <input type="color" data-keys="calendar-bg" id="color-bg" />
+        <span>Body</span>
+      </label>
+      <label class="theme-swatch" title="Day text">
+        <input type="color" data-keys="day-text,weekday-color" id="color-day-text" />
+        <span>Text</span>
+      </label>
+      <label class="theme-swatch" title="Today text">
+        <input type="color" data-keys="current-day-text" id="color-today-text" />
+        <span>Today</span>
+      </label>
+      <button type="button" class="theme-reset" id="theme-reset" title="Reset colors">Reset</button>
+    </div>
   </div>
 
-  <!-- JS -->
   <script src="script.js"></script>
 </body>
 </html>

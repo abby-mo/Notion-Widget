@@ -138,6 +138,42 @@ function initTheme() {
       syncColorInputs();
     });
   }
+
+  initThemePanel();
+}
+
+function initThemePanel() {
+  const container = document.querySelector(".calendar-container");
+  const toggle = document.getElementById("theme-toggle");
+  const panel = document.getElementById("theme-panel");
+  if (!container || !toggle || !panel) return;
+
+  function setOpen(open) {
+    panel.hidden = !open;
+    panel.classList.toggle("is-open", open);
+    toggle.classList.toggle("is-open", open);
+    toggle.setAttribute("aria-expanded", String(open));
+    toggle.setAttribute("aria-label", open ? "Close color editor" : "Edit colors");
+    toggle.hidden = open;
+  }
+
+  toggle.addEventListener("click", (event) => {
+    event.stopPropagation();
+    setOpen(true);
+  });
+
+  document.addEventListener("click", (event) => {
+    if (!panel.classList.contains("is-open")) return;
+    if (panel.contains(event.target) || toggle.contains(event.target)) return;
+    setOpen(false);
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && panel.classList.contains("is-open")) {
+      setOpen(false);
+      toggle.focus();
+    }
+  });
 }
 
 window.addEventListener("DOMContentLoaded", initTheme);

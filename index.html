@@ -16,9 +16,17 @@
       <div class="header">
         <span id="year"></span>
         <div class="month-navigation">
-          <button id="prevMonth" type="button" aria-label="Previous month">‹</button>
+          <button id="prevMonth" type="button" aria-label="Previous month">
+            <svg class="nav-chevron" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <polyline points="15 6 9 12 15 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </button>
           <h2 id="month"></h2>
-          <button id="nextMonth" type="button" aria-label="Next month">›</button>
+          <button id="nextMonth" type="button" aria-label="Next month">
+            <svg class="nav-chevron" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <polyline points="9 6 15 12 9 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </button>
         </div>
       </div>
 
@@ -39,7 +47,14 @@
 
     </div>
 
-    <div class="theme-panel" aria-label="Color theme">
+    <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Edit colors" aria-expanded="false" aria-controls="theme-panel" title="Edit colors">
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <circle cx="12" cy="12" r="3.25" fill="none" stroke="currentColor" stroke-width="1.5" />
+        <path d="M12 3.5v2.2M12 18.3v2.2M4.9 6.4l1.6 1.6M17.5 16l1.6 1.6M3.5 12h2.2M18.3 12h2.2M4.9 17.6l1.6-1.6M17.5 8l1.6-1.6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+      </svg>
+    </button>
+
+    <div class="theme-panel" id="theme-panel" aria-label="Color theme" hidden>
       <label class="theme-swatch" title="Accent">
         <input type="color" data-keys="header-bg,current-day-bg" id="color-accent" />
         <span>Accent</span>

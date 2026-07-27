@@ -38,8 +38,8 @@ html {
   flex-direction: column;
   justify-content: flex-start;
   align-items: stretch;
-  width: 225px;
-  height: 225px;
+  width: 200px;
+  height: 200px;
   aspect-ratio: 1 / 1;
   background-color: var(--calendar-bg);
   border-radius: 4px;

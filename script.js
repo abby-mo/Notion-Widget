@@ -207,66 +207,45 @@ function generateCalendar() {
     monthNames[currentMonth] + " " + currentYear;
   document.getElementById("year").textContent = currentYear;
 
-  calendarTable.querySelector("tbody").innerHTML = "";
+  const tbody = calendarTable.querySelector("tbody");
+  tbody.innerHTML = "";
 
+  const today = new Date();
   let dateNum = 1;
   let nextMonthDate = 1;
-  let row = calendarTable.querySelector("tbody").insertRow();
 
-  for (let i = 0; i < 7; i++) {
-    const cell = row.insertCell();
+  for (let week = 0; week < 6; week++) {
+    const row = tbody.insertRow();
 
-    if (i < firstDay) {
-      const prevMonthDay = daysInPrevMonth - firstDay + i + 1;
-      cell.textContent = prevMonthDay;
-      cell.classList.add("other-month");
-      continue;
-    }
-
-    const cellDate = dateNum;
-    cell.textContent = cellDate;
-
-    if (
-      cellDate === currentDate &&
-      currentMonth === new Date().getMonth() &&
-      currentYear === new Date().getFullYear()
-    ) {
-      cell.classList.add("current-day");
-    }
-
-    dateNum++;
-
-    if (i === 6) {
-      row = calendarTable.querySelector("tbody").insertRow();
-    }
-  }
-
-  while (dateNum <= daysInMonth) {
-    for (let i = 0; i < 7; i++) {
+    for (let day = 0; day < 7; day++) {
       const cell = row.insertCell();
+      const cellIndex = week * 7 + day;
 
-      if (dateNum > daysInMonth) {
-        cell.textContent = nextMonthDate;
+      if (cellIndex < firstDay) {
+        const prevMonthDay = daysInPrevMonth - firstDay + cellIndex + 1;
+        cell.textContent = prevMonthDay;
         cell.classList.add("other-month");
-        nextMonthDate++;
-      } else {
-        const cellDate = dateNum;
-        cell.textContent = cellDate;
+        continue;
+      }
+
+      if (dateNum <= daysInMonth) {
+        cell.textContent = dateNum;
 
         if (
-          cellDate === currentDate &&
-          currentMonth === new Date().getMonth() &&
-          currentYear === new Date().getFullYear()
+          dateNum === currentDate &&
+          currentMonth === today.getMonth() &&
+          currentYear === today.getFullYear()
         ) {
           cell.classList.add("current-day");
         }
 
         dateNum++;
+        continue;
       }
-    }
 
-    if (dateNum <= daysInMonth || nextMonthDate <= 7) {
-      row = calendarTable.querySelector("tbody").insertRow();
+      cell.textContent = nextMonthDate;
+      cell.classList.add("other-month");
+      nextMonthDate++;
     }
   }
 }

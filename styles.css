@@ -32,7 +32,7 @@ body {
   padding: 0;
   margin: 20px auto;
   overflow: hidden;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   box-sizing: border-box;
 }
 
@@ -138,6 +138,10 @@ tbody {
   height: calc(100% - 34px);
 }
 
+tbody tr {
+  height: calc(100% / 5);
+}
+
 th {
   font-family: var(--headerFont);
   color: var(--weekday-color);
@@ -159,7 +163,7 @@ td {
   line-height: 1;
   text-align: center;
   vertical-align: middle;
-  height: 14.28%;
+  height: auto;
 }
 
 td.other-month {

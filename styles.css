@@ -187,46 +187,52 @@ td.other-month {
   z-index: -1;
 }
 
-/* Hover theme toggle — small button only until opened */
+/* Hover theme toggle — circular accent swatch in top corner */
 .theme-toggle {
   position: absolute;
-  right: 8px;
-  bottom: 8px;
-  width: 28px;
-  height: 28px;
+  top: 10px;
+  right: 10px;
+  width: 18px;
+  height: 18px;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 0;
   border: 0;
-  border-radius: 4px;
-  background: rgba(30, 34, 45, 0.88);
-  color: rgba(255, 255, 255, 0.9);
+  border-radius: 50%;
+  background: transparent;
   cursor: pointer;
   opacity: 0;
   pointer-events: none;
-  transform: translateY(4px);
-  transition: opacity 0.18s ease, transform 0.18s ease, background 0.12s ease;
+  transition: opacity 0.18s ease, transform 0.12s ease;
   z-index: 11;
 }
 
-.theme-toggle svg {
-  width: 15px;
-  height: 15px;
+.theme-toggle-swatch {
   display: block;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--header-bg);
+  box-shadow:
+    0 0 0 2px #ffffff,
+    0 0 0 3px rgba(0, 0, 0, 0.08),
+    0 1px 2px rgba(0, 0, 0, 0.12);
 }
 
 .calendar-container:hover .theme-toggle,
-.calendar-container:focus-within .theme-toggle,
-.theme-toggle.is-open {
+.calendar-container:focus-within .theme-toggle {
   opacity: 1;
   pointer-events: auto;
-  transform: translateY(0);
 }
 
-.theme-toggle:hover,
+.theme-toggle:hover .theme-toggle-swatch {
+  transform: scale(1.08);
+}
+
 .theme-toggle.is-open {
-  background: rgba(30, 34, 45, 0.98);
+  opacity: 0;
+  pointer-events: none;
 }
 
 .theme-panel {

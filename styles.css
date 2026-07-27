@@ -187,37 +187,24 @@ td.other-month {
   z-index: -1;
 }
 
-/* Hover theme toggle — circular accent swatch in top corner */
+/* Hover theme toggle — plain circle overlay, top-right */
 .theme-toggle {
   position: absolute;
   top: 10px;
   right: 10px;
-  width: 18px;
-  height: 18px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  width: 14px;
+  height: 14px;
   padding: 0;
-  border: 0;
+  margin: 0;
+  border: 2px solid #ffffff;
   border-radius: 50%;
-  background: transparent;
+  background: var(--header-bg);
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.12);
   cursor: pointer;
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.18s ease, transform 0.12s ease;
   z-index: 11;
-}
-
-.theme-toggle-swatch {
-  display: block;
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  background: var(--header-bg);
-  box-shadow:
-    0 0 0 2px #ffffff,
-    0 0 0 3px rgba(0, 0, 0, 0.08),
-    0 1px 2px rgba(0, 0, 0, 0.12);
 }
 
 .calendar-container:hover .theme-toggle,
@@ -226,11 +213,12 @@ td.other-month {
   pointer-events: auto;
 }
 
-.theme-toggle:hover .theme-toggle-swatch {
-  transform: scale(1.08);
+.theme-toggle:hover {
+  transform: scale(1.1);
 }
 
-.theme-toggle.is-open {
+.theme-toggle.is-open,
+.theme-toggle[hidden] {
   opacity: 0;
   pointer-events: none;
 }

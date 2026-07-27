@@ -210,7 +210,8 @@ td.other-month {
 .theme-toggle {
   position: absolute;
   top: 5px;
-  right: 5px;
+  left: 5px;
+  right: auto;
   width: 10px;
   height: 10px;
   padding: 0;

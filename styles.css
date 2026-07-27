@@ -26,7 +26,7 @@ body {
   align-items: center;
   width: 280px;
   background-color: var(--calendar-bg);
-  border-radius: 16px;
+  border-radius: 4px;
   text-align: center;
   padding: 0;
   margin: 20px auto;
@@ -54,8 +54,8 @@ body {
   text-align: center;
   width: 100%;
   background-color: var(--header-bg);
-  padding: 18px 16px;
-  border-radius: 16px 16px 0 0;
+  padding: 18px 12px;
+  border-radius: 4px 4px 0 0;
   box-sizing: border-box;
 }
 
@@ -76,9 +76,9 @@ body {
   color: var(--header-text);
   padding: 0;
   margin: 0;
-  font-size: 1.15em;
-  letter-spacing: 0.3px;
-  font-weight: 600;
+  font-size: 1.2em;
+  letter-spacing: 0.2px;
+  font-weight: 800;
   cursor: pointer;
 }
 
@@ -87,23 +87,23 @@ body {
   background-color: transparent;
   border: 0;
   font-family: var(--headerFont);
-  font-size: 1.5em;
-  font-weight: 300;
-  opacity: 0.85;
+  font-size: 2.4em;
+  font-weight: 800;
+  opacity: 1;
   cursor: pointer;
   padding: 0;
   margin: 0;
   line-height: 1;
-  width: 36px;
-  height: 36px;
+  width: 40px;
+  height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: opacity 0.15s ease;
+  transition: transform 0.12s ease;
 }
 
 .month-navigation button:hover {
-  opacity: 1;
+  transform: scale(1.08);
 }
 
 /* Calendar table */
@@ -112,7 +112,7 @@ table {
   border-collapse: collapse;
   width: 100%;
   margin: 0;
-  padding: 12px 14px 16px;
+  padding: 12px 14px 44px;
   display: block;
   box-sizing: border-box;
 }
@@ -152,7 +152,7 @@ td.other-month {
   color: var(--other-month-color);
 }
 
-/* Current day — rounded square matching header */
+/* Current day — sharp rounded square matching header */
 .current-day {
   position: relative;
   z-index: 1;
@@ -169,6 +169,96 @@ td.other-month {
   width: 30px;
   height: 30px;
   background-color: var(--current-day-bg);
-  border-radius: 6px;
+  border-radius: 3px;
   z-index: -1;
+}
+
+/* Hover theme panel — hidden until calendar hover */
+.theme-panel {
+  position: absolute;
+  left: 8px;
+  right: 8px;
+  bottom: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px;
+  padding: 8px 10px;
+  background: rgba(30, 34, 45, 0.92);
+  border-radius: 4px;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(6px);
+  transition: opacity 0.18s ease, transform 0.18s ease;
+  z-index: 10;
+}
+
+.calendar-container:hover .theme-panel,
+.calendar-container:focus-within .theme-panel {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.theme-swatch {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  cursor: pointer;
+  min-width: 0;
+}
+
+.theme-swatch span {
+  font-family: var(--textFont);
+  font-size: 9px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.75);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.theme-swatch input[type="color"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 22px;
+  height: 22px;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 3px;
+  background: transparent;
+  cursor: pointer;
+}
+
+.theme-swatch input[type="color"]::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+
+.theme-swatch input[type="color"]::-webkit-color-swatch {
+  border: none;
+  border-radius: 2px;
+}
+
+.theme-swatch input[type="color"]::-moz-color-swatch {
+  border: none;
+  border-radius: 2px;
+}
+
+.theme-reset {
+  font-family: var(--textFont);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.85);
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 3px;
+  padding: 6px 8px;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.theme-reset:hover {
+  background: rgba(255, 255, 255, 0.2);
 }

@@ -1,201 +1,174 @@
 body {
-    -webkit-tap-highlight-color: transparent;
-    }
+  -webkit-tap-highlight-color: transparent;
+  margin: 0;
+  background: transparent;
+}
 
-    :root {
-      --weekday-color: #2D3748;
-      --header-bg: #D4E7D1;
-      --calendar-bg: #FFFFFF;
-      --container-bg: #F7F9FB;
-      --current-day-bg: #D4E7D1;
-      --other-month-color: #CBD5E0;
-      --fontWgt: 500;
-      --headerFont: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-      --textFont: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    }
-    
-  
-    /*containers*/
-    .calendar-container {
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-      align-items: center;
-      width: 200px;
-      background-color: var(--calendar-bg);
-      border-radius: 20px;
-      text-align: center;
-      padding: 0;
-      margin: 20px auto;
-      overflow: hidden;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-    }
+:root {
+  --header-bg: #1E222D;
+  --header-text: #FFFFFF;
+  --calendar-bg: #FFFFFF;
+  --day-text: #1A1A1A;
+  --weekday-color: #1A1A1A;
+  --other-month-color: #C5C5C5;
+  --current-day-bg: #1E222D;
+  --current-day-text: #FFFFFF;
+  --fontWgt: 500;
+  --headerFont: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --textFont: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
 
+.calendar-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 280px;
+  background-color: var(--calendar-bg);
+  border-radius: 16px;
+  text-align: center;
+  padding: 0;
+  margin: 20px auto;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
 
+.inner-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  background-color: var(--calendar-bg);
+  text-align: center;
+  padding: 0;
+}
 
-    .inner-container {
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-      align-items: center;
-      width: 100%;
-      background-color: var(--calendar-bg);
-      text-align: center;
-      padding: 0;
-    }
-  
-    
-  
-    /*days*/
-    td {
-      font-family: var(--textFont);
-      font-size: 14px;
-      color: var(--weekday-color);
-      border: 0;
-      font-weight: var(--fontWgt);
-      padding: 6px;
-      line-height: 1.4;
-      text-align: center;
-    }
+/* Header */
+.header {
+  margin-bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  background-color: var(--header-bg);
+  padding: 18px 16px;
+  border-radius: 16px 16px 0 0;
+  box-sizing: border-box;
+}
 
+#year {
+  display: none;
+}
 
-    td:first-child {
-      color: var(--weekday-color);
-    }
+.month-navigation {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
 
-    td:last-child{
-      color: var(--weekday-color);
-    }
+#month {
+  user-select: none;
+  font-family: var(--headerFont);
+  color: var(--header-text);
+  padding: 0;
+  margin: 0;
+  font-size: 1.15em;
+  letter-spacing: 0.3px;
+  font-weight: 600;
+  cursor: pointer;
+}
 
-    td.other-month {
-      color: var(--other-month-color);
-    }
+.month-navigation button {
+  color: var(--header-text);
+  background-color: transparent;
+  border: 0;
+  font-family: var(--headerFont);
+  font-size: 1.5em;
+  font-weight: 300;
+  opacity: 0.85;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+  line-height: 1;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.15s ease;
+}
 
-    table {
-      user-select: none;
-      border-collapse: collapse;
-      width: 100%;
-      max-width: 240px;
-      margin: 0 auto 16px;
-      padding: 0 12px;
-    }
+.month-navigation button:hover {
+  opacity: 1;
+}
 
+/* Calendar table */
+table {
+  user-select: none;
+  border-collapse: collapse;
+  width: 100%;
+  margin: 0;
+  padding: 12px 14px 16px;
+  display: block;
+  box-sizing: border-box;
+}
 
-    /*days of the week*/
-    th {
-      font-family: var(--headerFont);
-      color: var(--weekday-color);
-      font-size: 13px;
-      padding: 8px 6px;
-      line-height: 1.4;
-      border: 0;
-      text-align: center;
-      font-weight: 600;
-    }
+thead,
+tbody {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+}
 
-    th:first-child {
-      color: var(--weekday-color);
-    }
+th {
+  font-family: var(--headerFont);
+  color: var(--weekday-color);
+  font-size: 13px;
+  padding: 10px 4px 8px;
+  line-height: 1.4;
+  border: 0;
+  text-align: center;
+  font-weight: 700;
+}
 
-    th:last-child {
-      color: var(--weekday-color);
-    }
-  
-  
-    /*header*/
-    .header {
-      margin-bottom: 12px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      width: 100%;
-      background-color: var(--header-bg);
-      padding: 16px 20px;
-      border-radius: 20px 20px 0 0;
-    }
+td {
+  font-family: var(--textFont);
+  font-size: 14px;
+  color: var(--day-text);
+  border: 0;
+  font-weight: var(--fontWgt);
+  padding: 6px 4px;
+  line-height: 1;
+  text-align: center;
+  vertical-align: middle;
+  height: 36px;
+}
 
-    #year {
-      user-select: none;
-      font-family: var(--headerFont);
-      color: var(--weekday-color);
-      font-size: 0.8em;
-      margin-bottom: 0px;
-      font-weight: var(--fontWgt);
-      display: none;
-    }
+td.other-month {
+  color: var(--other-month-color);
+}
 
+/* Current day — rounded square matching header */
+.current-day {
+  position: relative;
+  z-index: 1;
+  color: var(--current-day-text) !important;
+  font-weight: 600;
+}
 
-    .month-navigation {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      width: 100%;
-      max-width: 240px;
-    }
-
-    #month {
-      user-select: none;
-      font-family: var(--headerFont);
-      color: var(--weekday-color);
-      padding: 0;
-      margin: 0;
-      font-size: 1.3em;
-      letter-spacing: 0.5px;
-      font-weight: 600;
-    }
-
-    .month-navigation button {
-      color: var(--weekday-color);
-      background-color: transparent;
-      border: 0;
-      font-family: var(--headerFont);
-      font-size: 1.8em;
-      font-weight: 400;
-      opacity: 0.7;
-      cursor: pointer;
-      padding: 0;
-      margin: 0;
-      line-height: 1;
-      width: 32px;
-      height: 32px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-
-    .month-navigation button:hover {
-      opacity: 1;
-    }
-  
-  
-  
-  
-    
-  
-  
-  
-    /*current day*/
-  .current-day {
-    position: relative;
-    z-index: 1;
-  }
-
-  .current-day::before {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 32px;
-    height: 32px;
-    background-color: var(--current-day-bg);
-    border-radius: 50%;
-    z-index: -1;
-  }
-  
-  
-  
-    
+.current-day::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 30px;
+  height: 30px;
+  background-color: var(--current-day-bg);
+  border-radius: 6px;
+  z-index: -1;
+}

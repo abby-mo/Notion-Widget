@@ -38,8 +38,8 @@ html {
   flex-direction: column;
   justify-content: flex-start;
   align-items: stretch;
-  width: 100px;
-  height: 100px;
+  width: 150px;
+  height: 150px;
   background-color: var(--calendar-bg);
   border-radius: 4px;
   text-align: center;
@@ -73,7 +73,7 @@ html {
   width: 100%;
   flex-shrink: 0;
   background-color: var(--header-bg);
-  padding: 12px 6px;
+  padding: 6px 5px;
   border-radius: 4px 4px 0 0;
   box-sizing: border-box;
 }
@@ -95,8 +95,9 @@ html {
   color: var(--header-text);
   padding: 0;
   margin: 0;
-  font-size: 0.95em;
-  letter-spacing: 0.2px;
+  font-size: 0.82em;
+  line-height: 1;
+  letter-spacing: 0;
   font-weight: 700;
   cursor: pointer;
 }
@@ -109,8 +110,8 @@ html {
   cursor: pointer;
   padding: 0;
   margin: 0;
-  width: 28px;
-  height: 28px;
+  width: 20px;
+  height: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -122,8 +123,8 @@ html {
 }
 
 .nav-chevron {
-  width: 14px;
-  height: 14px;
+  width: 12px;
+  height: 12px;
   display: block;
 }
 
@@ -134,7 +135,7 @@ table {
   width: 100%;
   height: 100%;
   margin: 0;
-  padding: 4px 6px 8px;
+  padding: 2px 3px 4px;
   display: block;
   box-sizing: border-box;
   flex: 1;
@@ -149,7 +150,7 @@ tbody {
 }
 
 tbody {
-  height: calc(100% - 28px);
+  height: calc(100% - 22px);
 }
 
 tbody tr {
@@ -159,9 +160,9 @@ tbody tr {
 th {
   font-family: var(--headerFont);
   color: var(--weekday-color);
-  font-size: 11px;
-  padding: 4px 2px 4px;
-  line-height: 1.3;
+  font-size: 8px;
+  padding: 2px 0 1px;
+  line-height: 1;
   border: 0;
   text-align: center;
   font-weight: 700;
@@ -169,11 +170,11 @@ th {
 
 td {
   font-family: var(--textFont);
-  font-size: 11px;
+  font-size: 8px;
   color: var(--day-text);
   border: 0;
   font-weight: var(--fontWgt);
-  padding: 2px;
+  padding: 0;
   line-height: 1;
   text-align: center;
   vertical-align: middle;
@@ -198,23 +199,23 @@ td.other-month {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 22px;
-  height: 22px;
+  width: 16px;
+  height: 16px;
   background-color: var(--current-day-bg);
-  border-radius: 3px;
+  border-radius: 4px;
   z-index: -1;
 }
 
 /* Hover theme toggle — plain circle overlay, top-right */
 .theme-toggle {
   position: absolute;
-  top: 8px;
-  right: 8px;
-  width: 12px;
-  height: 12px;
+  top: 5px;
+  right: 5px;
+  width: 10px;
+  height: 10px;
   padding: 0;
   margin: 0;
-  border: 2px solid #ffffff;
+  border: 1px solid #ffffff;
   border-radius: 50%;
   background: var(--header-bg);
   box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.12);
@@ -243,14 +244,14 @@ td.other-month {
 
 .theme-panel {
   position: absolute;
-  left: 6px;
-  right: 6px;
-  bottom: 6px;
+  left: 5px;
+  right: 5px;
+  bottom: 5px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 3px;
-  padding: 6px 8px;
+  gap: 4px;
+  padding: 5px 6px;
   background: rgba(30, 34, 45, 0.95);
   border-radius: 4px;
   opacity: 0;
@@ -278,7 +279,7 @@ td.other-month {
 
 .theme-swatch span {
   font-family: var(--textFont);
-  font-size: 8px;
+  font-size: 7px;
   font-weight: 600;
   color: rgba(255, 255, 255, 0.75);
   letter-spacing: 0.02em;
@@ -288,8 +289,8 @@ td.other-month {
 .theme-swatch input[type="color"] {
   -webkit-appearance: none;
   appearance: none;
-  width: 18px;
-  height: 18px;
+  width: 14px;
+  height: 14px;
   padding: 0;
   border: 1px solid rgba(255, 255, 255, 0.35);
   border-radius: 3px;
@@ -313,7 +314,7 @@ td.other-month {
 
 .theme-reset {
   font-family: var(--textFont);
-  font-size: 8px;
+  font-size: 7px;
   font-weight: 700;
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -321,7 +322,7 @@ td.other-month {
   background: rgba(255, 255, 255, 0.12);
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 3px;
-  padding: 5px 6px;
+  padding: 4px 5px;
   cursor: pointer;
   line-height: 1;
 }
